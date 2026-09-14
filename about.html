@@ -31,7 +31,7 @@
 
 <section class="section">
   <div class="wrap about-grid">
-    <div class="about-portrait placeholder" data-file="images/about-feature.jpg" style="background-image:url('images/about-feature.jpg')"></div>
+    <div class="about-carousel"> <div class="slide active" style="background-image:url('images/about-01.jpg')"></div> <div class="slide" style="background-image:url('images/about-02.jpg')"></div> <div class="slide" style="background-image:url('images/about-03.jpg')"></div> <div class="slide" style="background-image:url('images/about-04.jpg')"></div> <div class="dots"> <span class="dot active"></span> <span class="dot"></span> <span class="dot"></span> <span class="dot"></span> </div> </div>
     <div class="about-body">
       <h3>Hi, I'm Jeremy</h3>
       <p>Im a photographer with almost a year of experience and i enjoy taking photos and have worked for clubs like Kalamunda city and armadale soccer club. Im hoping to continue my journey to the A league
@@ -57,6 +57,6 @@
     </ul>
   </div>
 </footer>
-
+<script> (function(){ var slides = document.querySelectorAll('.about-carousel .slide'); var dots = document.querySelectorAll('.about-carousel .dot'); var i = 0; setInterval(function(){ slides[i].classList.remove('active'); dots[i].classList.remove('active'); i = (i + 1) % slides.length; slides[i].classList.add('active'); dots[i].classList.add('active'); }, 3000); })(); </script>
 </body>
 </html>

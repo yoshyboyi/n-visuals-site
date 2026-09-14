@@ -6,7 +6,7 @@
 <title>About — JN Visuals</title>
 <meta name="description" content="About JN Visuals, sports photographer covering junior and club football.">
 <link rel="stylesheet" href="css/style.css">
-<link rel="icon" type="image/png" href="favicon.png"
+<link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
 
@@ -31,15 +31,23 @@
 
 <section class="section">
   <div class="wrap about-grid">
-    <div class="about-carousel"> <div class="slide active" style="background-image:url('images/about-01.jpg')"></div> <div class="slide" style="background-image:url('images/about-02.jpg')"></div> <div class="slide" style="background-image:url('images/about-03.jpg')"></div> <div class="slide" style="background-image:url('images/about-04.jpg')"></div> <div class="dots"> <span class="dot active"></span> <span class="dot"></span> <span class="dot"></span> <span class="dot"></span> </div> </div>
+    <div class="about-carousel">
+      <div class="slide active" style="background-image:url('images/about-01.jpg')"></div>
+      <div class="slide" style="background-image:url('images/about-02.jpg')"></div>
+      <div class="dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
     <div class="about-body">
-      <h3>Hi, I'm Jeremy</h3>
-      <p>Im a photographer with almost a year of experience and i enjoy taking photos and have worked for clubs like Kalamunda city and armadale soccer club. Im hoping to continue my journey to the A league
+      <h3>Hi, I'm [Your Name]</h3>
+      <p>Replace this paragraph with a short introduction — how you got into sports photography, what draws you to the game, and what you're trying to capture when you're out on the touchline.</p>
+
       <h3>What I shoot</h3>
-      <p>I provide professional football photography for players, teams, and leagues, tailored to the needs of whoever I’m working with. From match-day action and team photography to individual player portfolios, I aim to capture high-quality images that showcase the intensity, personality, and moments that define the game.</p>
+      <p>Match-day action, team photo days, and individual player portfolios for grassroots and club football. Say a little about the leagues, clubs or age groups you usually cover.</p>
 
       <h3>Equipment &amp; approach</h3>
-      <p>I shoot with a Sony a6000 paired with a Tamron 28–200mm lens, giving me the versatility to capture everything from close-up player moments to action across the pitch. I typically arrive around 30 minutes before kick-off to prepare my equipment, meet the teams and staff, and capture some pre-match moments before the action begins.</p>
+      <p>Add a line or two about your gear and how you work on the day — arrival time, how galleries are delivered, and turnaround.</p>
     </div>
   </div>
 </section>
@@ -48,7 +56,7 @@
   <div class="wrap">
     <div>
       <a href="index.html" class="brand">JN VISUALS</a>
-            <p class="footer-note">Website Created By Yoshua Ineza (yoineza011@outlook.com) <a href="admin.html" style="color:rgba(245,243,234,0.12); text-decoration:none; padding:8px; display:inline-block;" title="">🔒</a></p>
+      <p class="footer-note">Sports photography <a href="admin.html" style="color:rgba(245,243,234,0.12); text-decoration:none; padding:8px; display:inline-block;" title="">🔒</a></p>
     </div>
     <ul class="footer-links">
       <li><a href="portfolio.html">Portfolio</a></li>
@@ -57,6 +65,21 @@
     </ul>
   </div>
 </footer>
-<script> (function(){ var slides = document.querySelectorAll('.about-carousel .slide'); var dots = document.querySelectorAll('.about-carousel .dot'); var i = 0; setInterval(function(){ slides[i].classList.remove('active'); dots[i].classList.remove('active'); i = (i + 1) % slides.length; slides[i].classList.add('active'); dots[i].classList.add('active'); }, 3000); })(); </script>
+
+<script>
+(function(){
+  var slides = document.querySelectorAll('.about-carousel .slide');
+  var dots = document.querySelectorAll('.about-carousel .dot');
+  var i = 0;
+  setInterval(function(){
+    slides[i].classList.remove('active');
+    dots[i].classList.remove('active');
+    i = (i + 1) % slides.length;
+    slides[i].classList.add('active');
+    dots[i].classList.add('active');
+  }, 5000);
+})();
+</script>
+
 </body>
 </html>

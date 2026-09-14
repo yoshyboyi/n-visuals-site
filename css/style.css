@@ -431,3 +431,6 @@ button:hover { background: var(--pitch-dark); }
 
 
 .hero::after, .page-hero::after { z-index: 1; } .hero-content, .page-hero .wrap { position: relative; z-index: 2; }
+
+
+.about-carousel { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--pitch); } .about-carousel .slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 1s ease; } .about-carousel .slide.active { opacity: 1; } .about-carousel .dots { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 2; } .about-carousel .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(245,243,234,0.4); transition: background 0.3s ease; } .about-carousel .dot.active { background: var(--floodlight); }

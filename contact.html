@@ -42,7 +42,7 @@
       <dd>@jn_visuals2010</dd>
     </dl>
 
-    <form action="https://formspree.io/f/xjyvqlzr" method="POST">
+    <form id="contact-form">
       <div>
         <label for="name">Name</label>
         <input id="name" name="name" type="text" required>
@@ -55,7 +55,8 @@
         <label for="message">Message</label>
         <textarea id="message" name="message" rows="5" required></textarea>
       </div>
-      <button type="submit">Send message</button>
+      <button type="submit" id="contact-submit">Send message</button>
+      <p id="contact-status" style="margin-top:10px; font-size:14px;"></p>
     </form>
   </div>
 </section>
@@ -73,6 +74,44 @@
     </ul>
   </div>
 </footer>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script>
+  var firebaseConfig = {
+    apiKey: "AIzaSyCkOezjnPDqlVPncjTh0aWwoMnuQRsSkOw",
+    authDomain: "jn-visuals.firebaseapp.com",
+    projectId: "jn-visuals",
+    storageBucket: "jn-visuals.firebasestorage.app",
+    messagingSenderId: "760724252521",
+    appId: "1:760724252521:web:a9e3b5ae39af77adb33ff8"
+  };
+  firebase.initializeApp(firebaseConfig);
+  var db = firebase.firestore();
+
+  document.getElementById('contact-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var status = document.getElementById('contact-status');
+    var btn = document.getElementById('contact-submit');
+    btn.disabled = true;
+    status.textContent = 'Sending...';
+
+    db.collection('messages').add({
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      message: document.getElementById('message').value,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(function(){
+      status.textContent = 'Thanks — your message has been sent.';
+      document.getElementById('contact-form').reset();
+      btn.disabled = false;
+    }).catch(function(err){
+      status.textContent = 'Something went wrong. Please try again.';
+      btn.disabled = false;
+      console.error(err);
+    });
+  });
+</script>
 
 </body>
 </html>

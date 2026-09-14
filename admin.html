@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+  .admin-wrap { max-width: 420px; margin: 120px auto; padding: 0 24px; text-align: center; }
+  .numpad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 24px; }
+  .numpad button { padding: 20px; font-size: 20px; background: var(--pitch); color: var(--paper); border: none; cursor: pointer; }
+  .numpad button:hover { background: var(--pitch-dark); }
+  .pin-display { font-size: 28px; letter-spacing: 12px; margin-top: 16px; min-height: 36px; }
+  .messages-list { max-width: 720px; margin: 60px auto; padding: 0 24px; }
+  .message-card { border: 1px solid var(--line); padding: 20px; margin-bottom: 16px; text-align: left; }
+  .message-card .meta { font-size: 13px; color: #7A7864; margin-bottom: 8px; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div class="admin-wrap" id="lock-screen">
+  <h1 style="font-family:var(--serif); font-weight:500;">Enter code</h1>
+  <div class="pin-display" id="pin-display"></div>
+  <div class="numpad">
+    <button onclick="press('1')">1</button>
+    <button onclick="press('2')">2</button>
+    <button onclick="press('3')">3</button>
+    <button onclick="press('4')">4</button>
+    <button onclick="press('5')">5</button>
+    <button onclick="press('6')">6</button>
+    <button onclick="press('7')">7</button>
+    <button onclick="press('8')">8</button>
+    <button onclick="press('9')">9</button>
+    <button onclick="clearPin()">Clear</button>
+    <button onclick="press('0')">0</button>
+    <button onclick="checkPin()">Enter</button>
+  </div>
+  <p id="pin-error" style="color:#B23; margin-top:16px;"></p>
+</div>
+
+<div class="messages-list hidden" id="messages-list">
+  <h1 style="font-family:var(--serif); font-weight:500;">Messages</h1>
+  <div id="messages-container">Loading...</div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script>
+  var firebaseConfig = {
+    apiKey: "AIzaSyCkOezjnPDqlVPncjTh0aWwoMnuQRsSkOw",
+    authDomain: "jn-visuals.firebaseapp.com",
+    projectId: "jn-visuals",
+    storageBucket: "jn-visuals.firebasestorage.app",
+    messagingSenderId: "760724252521",
+    appId: "1:760724252521:web:a9e3b5ae39af77adb33ff8"
+  };
+  firebase.initializeApp(firebaseConfig);
+  var db = firebase.firestore();
+
+  var CODE = "674113";
+  var entered = "";
+
+  function press(d) {
+    if (entered.length < 6) entered += d;
+    document.getElementById('pin-display').textContent = entered.split('').map(function(){return '•';}).join(' ');
+  }
+  function clearPin() {
+    entered = "";
+    document.getElementById('pin-display').textContent = "";
+    document.getElementById('pin-error').textContent = "";
+  }
+  function checkPin() {
+    if (entered === CODE) {
+      document.getElementById('lock-screen').classList.add('hidden');
+      document.getElementById('messages-list').classList.remove('hidden');
+      loadMessages();
+    } else {
+      document.getElementById('pin-error').textContent = "Incorrect code.";
+      clearPin();
+    }
+  }
+
+  function loadMessages() {
+    var container = document.getElementById('messages-container');
+    db.collection('messages').orderBy('createdAt', 'desc').get().then(function(snapshot){
+      if (snapshot.empty) {
+        container.textContent = "No messages yet.";
+        return;
+      }
+      container.innerHTML = "";
+      snapshot.forEach(function(doc){
+        var m = doc.data();
+        var when = m.createdAt ? m.createdAt.toDate().toLocaleString() : "";
+        var card = document.createElement('div');
+        card.className = 'message-card';
+        card.innerHTML =
+          '<div class="meta">' + when + ' — ' + (m.name || '') + ' (' + (m.email || '') + ')</div>' +
+          '<div>' + (m.message || '').replace(/</g,'&lt;') + '</div>';
+        container.appendChild(card);
+      });
+    }).catch(function(err){
+      container.textContent = "Error loading messages.";
+      console.error(err);
+    });
+  }
+</script>
+
+</body>
+</html>
